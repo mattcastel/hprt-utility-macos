@@ -23,6 +23,7 @@ struct HPRTUtilityApp: App {
             CommandMenu("Diagnostics") {
                 Button("Refresh All Checks") { state.refreshAll() }
                     .keyboardShortcut("r", modifiers: .command)
+                Button("Permissions & Setup…") { state.showOnboarding = true }
                 Divider()
                 ForEach(Panel.allCases) { panel in
                     Button(panel.title) { state.selection = panel }

@@ -21,15 +21,21 @@ struct RootView: View {
         .navigationTitle("")
         .frame(minWidth: 1_060, minHeight: 720)
         .onAppear {
+            // Show onboarding on first launch and hold the Bluetooth prompt until
+            // the user asks for it there — otherwise every grant fires at once.
+            state.presentOnboardingIfNeeded()
             state.refreshAll()
-            state.ble.start()
             state.usb.onChange = { [weak state] in
                 state?.log("USB topology changed.", .unknown)
                 state?.refreshAll()
             }
+            if state.hasOnboarded { state.ble.start() }
         }
         .sheet(isPresented: $showingReport) {
             ReportSheet(markdown: state.markdownReport())
+        }
+        .sheet(isPresented: $state.showOnboarding) {
+            OnboardingView().environmentObject(state)
         }
     }
 

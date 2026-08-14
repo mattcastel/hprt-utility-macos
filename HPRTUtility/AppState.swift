@@ -77,6 +77,16 @@ final class AppState: ObservableObject {
     @Published var lastRefresh: Date?
     @Published var activity: [ActivityEntry] = []
     @Published var jobs: [PrintJobRecord] = []
+    @Published var showOnboarding = false
+
+    // MARK: Onboarding
+    private static let onboardingKey = "hasCompletedOnboarding"
+    var hasOnboarded: Bool { UserDefaults.standard.bool(forKey: Self.onboardingKey) }
+    func presentOnboardingIfNeeded() { if !hasOnboarded { showOnboarding = true } }
+    func completeOnboarding() {
+        UserDefaults.standard.set(true, forKey: Self.onboardingKey)
+        showOnboarding = false
+    }
 
     struct ActivityEntry: Identifiable {
         let id = UUID()
