@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	  Wired into the build via CODE_SIGN_ENTITLEMENTS, so a signed build (Apple
+	  Development / Developer ID) carries these grants and the Bluetooth
+	  authorisation survives rebuilds. The two device.* keys are App Sandbox
+	  entitlements and are inert while the sandbox is off; they are kept here as
+	  the ready-made set for the day sandboxing is turned on. The library
+	  validation exception matters now: it lets the Hardened Runtime load a
+	  third-party libusb for the bidirectional status channel.
+
+	  The App Sandbox is deliberately absent. It would block lpadmin, cupsctl
+	  and any direct libusb access — which is most of what this app does.
+	-->
+	<key>com.apple.security.device.usb</key>
+	<true/>
+	<key>com.apple.security.device.bluetooth</key>
+	<true/>
+	<key>com.apple.security.cs.disable-library-validation</key>
+	<true/>
+</dict>
+</plist>
