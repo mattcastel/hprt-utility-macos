@@ -1,7 +1,7 @@
 # HPRT Utility for macOS
 
 <p align="center">
-  <img src="Support/AppIcon.icns" width="128" height="128" alt="HPRT Utility Icon" />
+  <img src="Support/AppIcon.png" width="128" height="128" alt="HPRT Utility Icon" />
 </p>
 
 <p align="center">
